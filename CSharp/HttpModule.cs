@@ -3,11 +3,14 @@ using CruiseControl.Models;
 using Nancy;
 using Nancy.IO;
 using Newtonsoft.Json;
+using System;
 
 namespace CruiseControl
 {
 	public class HttpModule : NancyModule
 	{
+        public Commander _commander;
+
 		public HttpModule()
 		{
 			Get["/"] = x => "Nancy";
@@ -16,6 +19,8 @@ namespace CruiseControl
 					var postData = ParseRequestBody(Request.Body);
 					return ProcessCommand(postData);
 				};
+
+            _commander = new Commander();
 		}
 
 		public string ParseRequestBody(RequestStream requestBody)
@@ -30,14 +35,11 @@ namespace CruiseControl
 		public string ProcessCommand(string parameters)
 		{
 			// Process the status
-
+            _commander.GetBoardStatus(JsonConvert.DeserializeObject<BoardStatus>(parameters));
+            
 			// Create commands to do
-			var cmds = new List<Command>();
-			cmds.Add(new Command { vesselid = 1, action = "move:north" });
-			cmds.Add(new Command { vesselid = 2, action = "move:west" });
-			cmds.Add(new Command { vesselid = 3, action = "move:south" });
-
-			return JsonConvert.SerializeObject(cmds);
+            return JsonConvert.SerializeObject(_commander.GiveCommands());
 		}
+
 	}
 }

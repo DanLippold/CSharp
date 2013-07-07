@@ -20,6 +20,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -75,9 +79,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commander.cs" />
+    <Compile Include="Enums\PowerUpType.cs" />
     <Compile Include="HttpModule.cs" />
+    <Compile Include="Models\BoardStatus.cs" />
     <Compile Include="Models\Command.cs" />
     <Compile Include="Models\Coordinate.cs" />
+    <Compile Include="Models\VesselStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
